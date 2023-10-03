@@ -8,9 +8,9 @@ class Magazine:
 
     def publish(self, article):
         if article.contains_too_short_title():
-            raise Exception("Title cannot have less than two characters")
+            raise Exception("Title cannot have less than 2 characters")
         if article.contains_too_long_title():
-            raise Exception("Title cannot have more than fifty characters")
+            raise Exception("Title cannot have more than 50 characters")
         if article.contains_too_short_text():
             raise Exception("Text cannot have less than 1800 characters")
         if article.contains_too_long_text():

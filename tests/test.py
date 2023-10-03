@@ -22,7 +22,6 @@ class MagazineTests(unittest.TestCase):
 
         self.assertEqual(len(articles), 1)
 
-
     def test_03_when_published_an_article_has_a_title(self):
         magazine = Magazine()
         article_text = "a" * 1800
@@ -54,7 +53,7 @@ class MagazineTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             magazine.publish(article)
 
-        self.assertEqual("Title cannot have less than two characters", str(result.exception))
+        self.assertEqual("Title cannot have less than 2 characters", str(result.exception))
 
     def test_06_title_of_article_cannot_be_too_long(self):
         magazine = Magazine()
@@ -64,7 +63,7 @@ class MagazineTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             magazine.publish(article)
 
-        self.assertEqual("Title cannot have more than fifty characters", str(result.exception))
+        self.assertEqual("Title cannot have more than 50 characters", str(result.exception))
 
     def test_07_text_of_article_cannot_be_too_short(self):
         magazine = Magazine()
