@@ -26,7 +26,7 @@ class Catalog:
         return "x" * 1800
 
     def standard_article_title(self):
-            return "x" * 2
+        return "x" * 2
 
     def create_article(self, title=None, text=None):
         if title is None:
