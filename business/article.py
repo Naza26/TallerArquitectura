@@ -1,4 +1,8 @@
 class Article:
+    SHORT_TITLE_LENGTH = 2
+    LONG_TITLE_LENGTH = 50
+    SHORT_TEXT_LENGTH = 1800
+    LONG_TEXT_LENGTH = 5200
     def __init__(self, title, text):  # You will be valid and complete one day...
         self._title = title
         self._text = text
@@ -10,13 +14,13 @@ class Article:
         return self._text == text
 
     def contains_too_short_title(self):
-        return len(self._title) < 2
+        return len(self._title) < self.SHORT_TITLE_LENGTH
 
     def contains_too_long_title(self):
-        return len(self._title) > 50
+        return len(self._title) > self.LONG_TITLE_LENGTH
 
     def contains_too_short_text(self):
-        return len(self._text) < 1800
+        return len(self._text) < self.SHORT_TEXT_LENGTH
 
     def contains_too_long_text(self):
-        return len(self._text) > 5200
+        return len(self._text) > self.LONG_TEXT_LENGTH

@@ -1,5 +1,5 @@
-from model.article import Article
-from model.magazine import Magazine
+from business.article import Article
+from business.magazine import Magazine
 
 
 class Catalog:
