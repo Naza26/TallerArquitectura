@@ -1,4 +1,6 @@
 import unittest
+
+from business.article import Article
 from tests.catalog import Catalog
 
 
@@ -52,7 +54,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = f"Title cannot be equal to or less than {len(short_article_title)} characters"
+        error_message = f"Title cannot be equal to or less than {Article.TOO_SHORT_TITLE_LENGTH} characters"
         self.assertEqual(error_message, str(result.exception))
 
     def test_06_title_of_article_cannot_be_too_long(self):
@@ -62,7 +64,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = f"Title cannot be equal to or greater than {len(long_article_title)} characters"
+        error_message = f"Title cannot be equal to or greater than {Article.TOO_LONG_TITLE_LENGTH} characters"
         self.assertEqual(error_message, str(result.exception))
 
     def test_07_text_of_article_cannot_be_too_short(self):
@@ -72,7 +74,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = f"Text cannot be equal to or less than {len(short_article_text)} characters"
+        error_message = f"Text cannot be equal to or less than {Article.TOO_SHORT_TEXT_LENGTH} characters"
         self.assertEqual(error_message, str(result.exception))
 
     def test_08_text_of_article_cannot_be_too_long(self):
@@ -82,7 +84,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = f"Text cannot be equal to or greater than {len(long_article_text)} characters"
+        error_message = f"Text cannot be equal to or greater than {Article.TOO_LONG_TEXT_LENGTH} characters"
         self.assertEqual(error_message, str(result.exception))
 
     def _assert_magazine_cannot_publish_invalid_article(self, article, magazine):
