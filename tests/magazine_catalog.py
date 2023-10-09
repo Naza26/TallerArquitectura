@@ -2,7 +2,7 @@ from business.model.article import Article
 from business.model.magazine import Magazine
 
 
-class Catalog:
+class MagazineCatalog:
     def __init__(self):
         self.standard_title = self.standard_article_title()
         self.standard_text = self.standard_article_text()

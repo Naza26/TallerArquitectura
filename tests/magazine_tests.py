@@ -1,14 +1,14 @@
 import unittest
 
 from business.model.article import Article
-from tests.magazine_catalog import Catalog
+from tests.magazine_catalog import MagazineCatalog
 
 
 class MagazineTests(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(MagazineTests, self).__init__(*args, **kwargs)
-        self.catalog = Catalog()
+        self.catalog = MagazineCatalog()
 
     def test_01_list_of_articles_can_be_seen(self):
         magazine = self.catalog.empty_magazine()
