@@ -46,7 +46,8 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test05_system_cannot_publish_articles_with_too_short_titles(self):
         system = MagazineSystem()
-        article_to_serialize = {"title": "x" * (Article.MINIMUM_TITLE_LENGTH - 1), "text": "x" * Article.MINIMUM_TEXT_LENGTH}
+        article_to_serialize = {"title": "x" * (Article.MINIMUM_TITLE_LENGTH - 1),
+                                "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
         with self.assertRaises(Exception) as result:
@@ -58,7 +59,8 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test06_system_cannot_publish_articles_with_too_short_texts(self):
         system = MagazineSystem()
-        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * (Article.MINIMUM_TEXT_LENGTH - 1)}
+        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH,
+                                "text": "x" * (Article.MINIMUM_TEXT_LENGTH - 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
         with self.assertRaises(Exception) as result:
@@ -70,7 +72,8 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test07_system_cannot_publish_articles_with_too_long_titles(self):
         system = MagazineSystem()
-        article_to_serialize = {"title": "x" * (Article.MAXIMUM_TITLE_LENGTH + 1), "text": "x" * Article.MINIMUM_TEXT_LENGTH}
+        article_to_serialize = {"title": "x" * (Article.MAXIMUM_TITLE_LENGTH + 1),
+                                "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
         with self.assertRaises(Exception) as result:
@@ -82,7 +85,8 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test08_system_cannot_publish_articles_with_too_long_texts(self):
         system = MagazineSystem()
-        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * (Article.MAXIMUM_TEXT_LENGTH + 1)}
+        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH,
+                                "text": "x" * (Article.MAXIMUM_TEXT_LENGTH + 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
         with self.assertRaises(Exception) as result:
@@ -91,7 +95,6 @@ class MagazineSystemTests(unittest.TestCase):
         error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
                         f" characters long"
         self.assertEqual(error_message, str(result.exception))
-
 
 
 if __name__ == '__main__':
