@@ -1,34 +1,37 @@
 import unittest
 
 from business.article import Article
-from system import System
+from magazine_system import MagazineSystem
 
 
-class MyTestCase(unittest.TestCase):
-    def test01(self):
-        system = System()
+class MagazineSystemTests(unittest.TestCase):
+    def test01_system_can_see_list_of_articles(self):
+        system = MagazineSystem()
 
         articles = system.list_of_articles()
 
         self.assertEqual(len(articles), 0)
 
-    def test02(self):
-        system = System()
+    def test02_system_can_publish_an_article(self):
+        system = MagazineSystem()
+        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
+        article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        system.publish({"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH})
+        system.publish(article_to_publish)
 
         articles = system.list_of_articles()
         self.assertEqual(len(articles), 1)
 
-    def test03(self):
-        system = System()
-        article_to_publish = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
+    def test03_system_can_publish_articles_with_valid_titles(self):
+        system = MagazineSystem()
+        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
+        article_to_publish = system.create_serialized_article(article_to_serialize)
 
         system.publish(article_to_publish)
 
         published_article = system.list_of_articles()[0]
-        self.assertTrue(published_article["title"] == article_to_publish["title"])
-        self.assertFalse(published_article["title"] == "xxx")
+        self.assertTrue(published_article.has_title(article_to_serialize["title"]))
+        self.assertFalse(published_article.has_title("xxx"))
 
 
 
