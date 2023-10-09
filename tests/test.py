@@ -49,7 +49,7 @@ class MagazineTests(unittest.TestCase):
         magazine = self.catalog.empty_magazine()
         article = self.catalog.create_article(title=self.catalog.short_article_title())
 
-        result = self._assert_magazine_cannot_publish_invalid(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
 
         self.assertEqual("Title cannot be equal to or less than 1 characters", str(result.exception))
 
@@ -58,7 +58,7 @@ class MagazineTests(unittest.TestCase):
         long_article_title = self.catalog.long_article_title()
         article = self.catalog.create_article(title=long_article_title)
 
-        result = self._assert_magazine_cannot_publish_invalid(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
 
         self.assertEqual("Title cannot be equal to or greater than 51 characters", str(result.exception))
 
@@ -67,7 +67,7 @@ class MagazineTests(unittest.TestCase):
         short_article_text = self.catalog.short_article_text()
         article = self.catalog.create_article(text=short_article_text)
 
-        result = self._assert_magazine_cannot_publish_invalid(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
 
         self.assertEqual("Text cannot be equal to or less than 1799 characters", str(result.exception))
 
@@ -76,11 +76,11 @@ class MagazineTests(unittest.TestCase):
         long_article_text = self.catalog.long_article_text()
         article = self.catalog.create_article(text=long_article_text)
 
-        result = self._assert_magazine_cannot_publish_invalid(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
 
         self.assertEqual("Text cannot be equal to or greater than 5201 characters", str(result.exception))
 
-    def _assert_magazine_cannot_publish_invalid(self, article, magazine):
+    def _assert_magazine_cannot_publish_invalid_article(self, article, magazine):
         with self.assertRaises(Exception) as result:
             magazine.publish(article)
         return result
