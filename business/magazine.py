@@ -11,9 +11,9 @@ class Magazine:
         self._articles.append(article)
 
     def _validate_article_to_publish(self, article):
-        if article.contains_too_short_title() or article.contains_too_long_title():
+        if article.contains_invalid_title_length():
             raise Exception(f"Title must be within {article.MINIMUM_TITLE_LENGTH}-{article.MAXIMUM_TITLE_LENGTH} "
                             f"characters long")
-        if article.contains_too_short_text() or article.contains_too_long_text():
+        if article.contains_invalid_text_length():
             raise Exception(f"Text must be within {article.MINIMUM_TEXT_LENGTH}-{article.MAXIMUM_TEXT_LENGTH} "
                             f"characters long")

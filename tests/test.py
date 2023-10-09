@@ -34,8 +34,9 @@ class MagazineTests(unittest.TestCase):
 
         magazine.publish(article)
 
-        an_article = self.catalog.get_an_article_from(magazine.list_of_articles())
-        self._assert_proper_article_is_contained_in_magazine(an_article, an_article.has_title, standard_article_title)
+        an_article = self.catalog.sample_article_from(magazine.list_of_articles())
+        self._assert_proper_article_is_contained_in_magazine(an_article.has_title, an_article.has_title,
+                                                             standard_article_title)
 
     def test_04_when_published_an_article_has_a_text(self):
         magazine = self.catalog.empty_magazine()
@@ -44,8 +45,9 @@ class MagazineTests(unittest.TestCase):
 
         magazine.publish(article)
 
-        an_article = self.catalog.get_an_article_from(magazine.list_of_articles())
-        self._assert_proper_article_is_contained_in_magazine(an_article, an_article.has_text, standard_article_text)
+        an_article = self.catalog.sample_article_from(magazine.list_of_articles())
+        self._assert_proper_article_is_contained_in_magazine(an_article.has_text, an_article.has_text,
+                                                             standard_article_text)
 
     def test_05_title_of_article_cannot_be_too_short(self):
         magazine = self.catalog.empty_magazine()
@@ -54,8 +56,8 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = (f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH} "
-                         f"characters long")
+        error_message = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+                        f" characters long"
         self.assertEqual(error_message, str(result.exception))
 
     def test_06_title_of_article_cannot_be_too_long(self):
@@ -65,8 +67,8 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = (f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH} "
-                         f"characters long")
+        error_message = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+                        f" characters long"
         self.assertEqual(error_message, str(result.exception))
 
     def test_07_text_of_article_cannot_be_too_short(self):
@@ -76,8 +78,8 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = (f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH} "
-                         f"characters long")
+        error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
+                        f" characters long"
         self.assertEqual(error_message, str(result.exception))
 
     def test_08_text_of_article_cannot_be_too_long(self):
@@ -87,8 +89,8 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        error_message = (f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH} "
-                         f"characters long")
+        error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
+                        f" characters long"
         self.assertEqual(error_message, str(result.exception))
 
     def _assert_magazine_cannot_publish_invalid_article(self, article, magazine):
@@ -96,9 +98,9 @@ class MagazineTests(unittest.TestCase):
             magazine.publish(article)
         return result
 
-    def _assert_proper_article_is_contained_in_magazine(self, an_article, has_valid_content, content):
+    def _assert_proper_article_is_contained_in_magazine(self, has_invalid_content, has_valid_content, content):
         self.assertTrue(has_valid_content(content))
-        self.assertFalse(an_article.has_title("xxx"))
+        self.assertFalse(has_invalid_content("xxx"))
 
 
 if __name__ == '__main__':

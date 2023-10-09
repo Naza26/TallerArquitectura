@@ -11,22 +11,22 @@ class Catalog:
         return Magazine()
 
     def long_article_title(self):
-        return "x" * Article.TOO_LONG_TITLE_LENGTH
+        return "x" * (max(Article.VALID_TITLE_RANGE) + 1)
 
     def short_article_title(self):
-        return "x" * Article.TOO_SHORT_TITLE_LENGTH
+        return "x" * (min(Article.VALID_TEXT_RANGE) - 1)
 
     def long_article_text(self):
-        return "x" * Article.TOO_LONG_TEXT_LENGTH
+        return "x" * (max(Article.VALID_TEXT_RANGE) + 1)
 
     def short_article_text(self):
-        return "x" * Article.TOO_SHORT_TEXT_LENGTH
+        return "x" * (min(Article.VALID_TEXT_RANGE) - 1)
 
     def standard_article_text(self):
-        return "x" * Article.MINIMUM_TEXT_LENGTH
+        return "x" * min(Article.VALID_TEXT_RANGE)
 
     def standard_article_title(self):
-        return "x" * Article.MINIMUM_TITLE_LENGTH
+        return "x" * min(Article.VALID_TITLE_RANGE)
 
     def create_article(self, title=None, text=None):
         if title is None:
@@ -35,5 +35,5 @@ class Catalog:
             text = self.standard_text
         return Article(title, text)
 
-    def get_an_article_from(self, articles):
+    def sample_article_from(self, articles):
         return articles[0]
