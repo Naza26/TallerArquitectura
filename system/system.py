@@ -1,14 +1,12 @@
-import unittest
+from business.magazine import Magazine
 
 
-class MyTestCase(unittest.TestCase):
-    def test01(self):
-        magazine = {}
+class System:
+    def __init__(self):
+        self._magazine = Magazine()
 
-        articles = system.list_of_articles()
+    def list_of_articles(self):
+        return self._magazine.list_of_articles()
 
-        self.assertEqual(len(articles), 0)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def publish(self, article):
+        self._magazine.publish(article)
