@@ -1,7 +1,7 @@
 import unittest
 
-from business.article import Article
-from tests.catalog import Catalog
+from business.model.article import Article
+from tests.magazine_catalog import Catalog
 
 
 class MagazineTests(unittest.TestCase):

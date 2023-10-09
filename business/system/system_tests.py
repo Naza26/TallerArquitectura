@@ -1,6 +1,6 @@
 import unittest
 
-from business.article import Article
+from business.model.article import Article
 from magazine_system import MagazineSystem
 
 

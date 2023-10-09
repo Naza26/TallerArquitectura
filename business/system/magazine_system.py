@@ -1,5 +1,5 @@
-from business.article import Article
-from business.magazine import Magazine
+from business.model.article import Article
+from business.model.magazine import Magazine
 
 
 class MagazineSystem:
