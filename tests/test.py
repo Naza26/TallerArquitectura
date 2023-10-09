@@ -48,9 +48,9 @@ class MagazineTests(unittest.TestCase):
     def test_05_title_of_article_cannot_be_too_short(self):
         magazine = self.catalog.empty_magazine()
         short_article_title = self.catalog.short_article_title()
-        article = self.catalog.create_article(title=short_article_title)
+        invalid_article = self.catalog.create_article(title=short_article_title)
 
-        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
         error_message = f"Title cannot be equal to or less than {len(short_article_title)} characters"
         self.assertEqual(error_message, str(result.exception))
@@ -58,9 +58,9 @@ class MagazineTests(unittest.TestCase):
     def test_06_title_of_article_cannot_be_too_long(self):
         magazine = self.catalog.empty_magazine()
         long_article_title = self.catalog.long_article_title()
-        article = self.catalog.create_article(title=long_article_title)
+        invalid_article = self.catalog.create_article(title=long_article_title)
 
-        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
         error_message = f"Title cannot be equal to or greater than {len(long_article_title)} characters"
         self.assertEqual(error_message, str(result.exception))
@@ -68,9 +68,9 @@ class MagazineTests(unittest.TestCase):
     def test_07_text_of_article_cannot_be_too_short(self):
         magazine = self.catalog.empty_magazine()
         short_article_text = self.catalog.short_article_text()
-        article = self.catalog.create_article(text=short_article_text)
+        invalid_article = self.catalog.create_article(text=short_article_text)
 
-        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
         error_message = f"Text cannot be equal to or less than {len(short_article_text)} characters"
         self.assertEqual(error_message, str(result.exception))
@@ -78,9 +78,9 @@ class MagazineTests(unittest.TestCase):
     def test_08_text_of_article_cannot_be_too_long(self):
         magazine = self.catalog.empty_magazine()
         long_article_text = self.catalog.long_article_text()
-        article = self.catalog.create_article(text=long_article_text)
+        invalid_article = self.catalog.create_article(text=long_article_text)
 
-        result = self._assert_magazine_cannot_publish_invalid_article(article, magazine)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
         error_message = f"Text cannot be equal to or greater than {len(long_article_text)} characters"
         self.assertEqual(error_message, str(result.exception))
