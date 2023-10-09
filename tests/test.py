@@ -1,4 +1,6 @@
 import unittest
+
+from business.article import Article
 from tests.catalog import Catalog
 
 
@@ -21,21 +23,19 @@ class MagazineTests(unittest.TestCase):
         article = self.catalog.create_article(text=standard_article_text)
 
         magazine.publish(article)
-        articles = magazine.list_of_articles()
 
+        articles = magazine.list_of_articles()
         self.assertEqual(len(articles), 1)
 
     def test_03_when_published_an_article_has_a_title(self):
         magazine = self.catalog.empty_magazine()
-        standard_article_text = self.catalog.standard_article_text()
-        article = self.catalog.create_article(text=standard_article_text)
+        standard_article_title = self.catalog.standard_article_title()
+        article = self.catalog.create_article(title=standard_article_title)
 
         magazine.publish(article)
 
-        articles = magazine.list_of_articles()
-        an_article = articles[0]
-        self.assertTrue(an_article.has_title(self.catalog.standard_article_title()))
-        self.assertFalse(an_article.has_title("xxx"))
+        an_article = self.catalog.get_an_article_from(magazine.list_of_articles())
+        self._assert_proper_article_is_contained_in_magazine(an_article, an_article.has_title, standard_article_title)
 
     def test_04_when_published_an_article_has_a_text(self):
         magazine = self.catalog.empty_magazine()
@@ -44,49 +44,61 @@ class MagazineTests(unittest.TestCase):
 
         magazine.publish(article)
 
-        articles = magazine.list_of_articles()
-        an_article = articles[0]
-        self.assertTrue(an_article.has_text(standard_article_text))
-        self.assertFalse(an_article.has_text("xxx"))
+        an_article = self.catalog.get_an_article_from(magazine.list_of_articles())
+        self._assert_proper_article_is_contained_in_magazine(an_article, an_article.has_text, standard_article_text)
 
     def test_05_title_of_article_cannot_be_too_short(self):
         magazine = self.catalog.empty_magazine()
-        article = self.catalog.create_article(title=self.catalog.short_article_title())
+        short_article_title = self.catalog.short_article_title()
+        invalid_article = self.catalog.create_article(title=short_article_title)
 
-        with self.assertRaises(Exception) as result:
-            magazine.publish(article)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        self.assertEqual("Title cannot have less than 2 characters", str(result.exception))
+        error_message = (f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}"
+                         f" characters long")
+        self.assertEqual(error_message, str(result.exception))
 
     def test_06_title_of_article_cannot_be_too_long(self):
         magazine = self.catalog.empty_magazine()
         long_article_title = self.catalog.long_article_title()
-        article = self.catalog.create_article(title=long_article_title)
+        invalid_article = self.catalog.create_article(title=long_article_title)
 
-        with self.assertRaises(Exception) as result:
-            magazine.publish(article)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        self.assertEqual("Title cannot have more than 50 characters", str(result.exception))
+        error_message = (f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}"
+                         f" characters long")
+        self.assertEqual(error_message, str(result.exception))
 
     def test_07_text_of_article_cannot_be_too_short(self):
         magazine = self.catalog.empty_magazine()
         short_article_text = self.catalog.short_article_text()
-        article = self.catalog.create_article(text=short_article_text)
+        invalid_article = self.catalog.create_article(text=short_article_text)
 
-        with self.assertRaises(Exception) as result:
-            magazine.publish(article)
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
 
-        self.assertEqual("Text cannot have less than 1800 characters", str(result.exception))
+        error_message = (f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}"
+                         f" characters long")
+        self.assertEqual(error_message, str(result.exception))
 
     def test_08_text_of_article_cannot_be_too_long(self):
         magazine = self.catalog.empty_magazine()
         long_article_text = self.catalog.long_article_text()
-        article = self.catalog.create_article(text=long_article_text)
+        invalid_article = self.catalog.create_article(text=long_article_text)
 
+        result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, magazine)
+
+        error_message = (f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}"
+                         f" characters long")
+        self.assertEqual(error_message, str(result.exception))
+
+    def _assert_magazine_cannot_publish_invalid_article(self, article, magazine):
         with self.assertRaises(Exception) as result:
             magazine.publish(article)
+        return result
 
-        self.assertEqual("Text cannot have more than 5200 characters", str(result.exception))
+    def _assert_proper_article_is_contained_in_magazine(self, an_article, has_valid_content, content):
+        self.assertTrue(has_valid_content(content))
+        self.assertFalse(an_article.has_title("xxx"))
 
 
 if __name__ == '__main__':
