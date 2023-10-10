@@ -127,6 +127,16 @@ class MagazineSystemTests(unittest.TestCase):
 
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
 
+    def test12_system_cannot_obtain_article_if_title_is_not_found(self):
+        system = MagazineSystem()
+        articles_to_serialize = self._articles_to_serialize()
+        articles_to_publish = self._articles_to_publish(system, articles_to_serialize)
+        self._publish_articles(system, articles_to_publish)
+        title_of_article_to_obtain = "Title D"
+
+        obtained_article = system.article_by_title(title_of_article_to_obtain)
+
+        self.assertTrue(obtained_article is None)
 
     def _generate_summarized_article_list(self, articles):
         summarized_articles = []
