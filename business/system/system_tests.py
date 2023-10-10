@@ -30,6 +30,7 @@ class MagazineSystemTests(unittest.TestCase):
         system.publish(article_to_publish)
 
         published_article = system.list_of_articles()[0]
+        published_article = list(published_article.values())[0]
         self.assertTrue(published_article.has_title(article_to_serialize["title"]))
         self.assertFalse(published_article.has_title("xxx"))  # Delete me
 
@@ -41,6 +42,7 @@ class MagazineSystemTests(unittest.TestCase):
         system.publish(article_to_publish)
 
         published_article = system.list_of_articles()[0]
+        published_article = list(published_article.values())[0]
         self.assertTrue(published_article.has_text(article_to_serialize["text"]))
         self.assertFalse(published_article.has_text("xxx"))
 
@@ -138,6 +140,19 @@ class MagazineSystemTests(unittest.TestCase):
 
         self.assertTrue(obtained_article is None)
 
+    def test13_system_can_unequivocally_obtain_article(self):
+        system = MagazineSystem()
+        articles_to_serialize = self._articles_to_serialize()
+        articles_to_publish = self._articles_to_publish(system, articles_to_serialize)
+        self._publish_articles(system, articles_to_publish)
+        system.publish(system.create_serialized_article(
+            {"title": "Title A", "text": "a" * Article.MINIMUM_TEXT_LENGTH})
+        )
+        title_of_article_to_obtain = "Title A"
+
+        obtained_article = system.article_by_title(title_of_article_to_obtain)
+        self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
+        self.assertTrue(obtained_article.has_text("a" * Article.MINIMUM_TEXT_LENGTH))
     def _generate_summarized_article_list(self, articles):
         summarized_articles = []
         for article in articles:

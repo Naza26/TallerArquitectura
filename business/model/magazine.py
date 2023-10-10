@@ -8,7 +8,7 @@ class Magazine:
 
     def publish(self, article):
         self._validate_article_to_publish(article)
-        self._articles.append(article)
+        self._articles.append({len(self._articles) + 1: article})
 
     def _validate_article_to_publish(self, article):
         if article.contains_invalid_title_length():
