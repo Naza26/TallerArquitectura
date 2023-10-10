@@ -20,3 +20,9 @@ class MagazineSystem:
         for article in self.list_of_articles():
             summarized_articles.append(article.summarized())
         return summarized_articles
+
+    def article_by_title(self, title_of_article_to_obtain):
+        for article in self.list_of_articles():
+            if article.has_title(title_of_article_to_obtain):
+                return article
+        return None
