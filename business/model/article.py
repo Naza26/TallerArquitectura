@@ -4,8 +4,8 @@ class Article:
     MINIMUM_TEXT_LENGTH = 1800
     MAXIMUM_TEXT_LENGTH = 5200
 
-    VALID_TITLE_RANGE = range(MINIMUM_TITLE_LENGTH, MAXIMUM_TITLE_LENGTH)
-    VALID_TEXT_RANGE = range(MINIMUM_TEXT_LENGTH, MAXIMUM_TEXT_LENGTH)
+    VALID_TITLE_LENGTH = range(MINIMUM_TITLE_LENGTH, MAXIMUM_TITLE_LENGTH)
+    VALID_TEXT_LENGTH = range(MINIMUM_TEXT_LENGTH, MAXIMUM_TEXT_LENGTH)
 
     def __init__(self, title, text):  # You will be valid and complete one day...
         self._title = title
@@ -18,7 +18,10 @@ class Article:
         return self._text == text
 
     def contains_invalid_text_length(self):
-        return len(self._text) not in self.VALID_TEXT_RANGE
+        return len(self._text) not in self.VALID_TEXT_LENGTH
 
     def contains_invalid_title_length(self):
-        return len(self._title) not in self.VALID_TITLE_RANGE
+        return len(self._title) not in self.VALID_TITLE_LENGTH
+
+    def summarized(self):
+        return {self._title: self._text[:100]}

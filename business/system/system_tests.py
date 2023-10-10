@@ -31,7 +31,7 @@ class MagazineSystemTests(unittest.TestCase):
 
         published_article = system.list_of_articles()[0]
         self.assertTrue(published_article.has_title(article_to_serialize["title"]))
-        self.assertFalse(published_article.has_title("xxx"))
+        self.assertFalse(published_article.has_title("xxx"))  # Delete me
 
     def test04_system_can_publish_articles_with_valid_texts(self):
         system = MagazineSystem()
@@ -95,6 +95,48 @@ class MagazineSystemTests(unittest.TestCase):
         error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
                         f" characters long"
         self.assertEqual(error_message, str(result.exception))
+
+    def test09_system_cannot_be_corrupted_from_outside(self):
+        system = MagazineSystem()
+        articles = system.list_of_articles()
+
+        articles.append("xxx")
+
+        articles = system.list_of_articles()
+        self.assertEqual(len(articles), 0)
+
+    def test10_system_can_obtain_summarized_articles_list(self):
+        system = MagazineSystem()
+        articles_to_serialize = self._articles_to_serialize()
+        articles_to_publish = self._articles_to_publish(system, articles_to_serialize)
+        self._publish_articles(system, articles_to_publish)
+
+        summarized_articles = system.list_of_summarized_articles()
+
+        expected_articles_list = self._generate_summarized_article_list(articles_to_publish)
+        self.assertEqual(summarized_articles, expected_articles_list)
+
+    def _generate_summarized_article_list(self, articles):
+        summarized_articles = []
+        for article in articles:
+            summarized_articles.append(article.summarized())
+        return summarized_articles
+
+    def _articles_to_serialize(self):
+        return [
+            {"title": "Title A", "text": "x" * Article.MINIMUM_TEXT_LENGTH},
+            {"title": "Title B", "text": "y" * Article.MINIMUM_TEXT_LENGTH},
+            {"title": "Title C", "text": "z" * Article.MINIMUM_TEXT_LENGTH}
+        ]
+
+    def _articles_to_publish(self, system, articles_to_serialize):
+        articles_to_publish = []
+        for article in articles_to_serialize:
+            articles_to_publish.append(system.create_serialized_article(article))
+        return articles_to_publish
+
+    def _publish_articles(self, system, articles_to_publish):
+        [system.publish(article) for article in articles_to_publish]
 
 
 if __name__ == '__main__':
