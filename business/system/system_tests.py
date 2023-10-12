@@ -2,9 +2,14 @@ import unittest
 
 from business.model.article import Article
 from magazine_system import MagazineSystem
+from tests.magazine_catalog import MagazineCatalog
 
 
 class MagazineSystemTests(unittest.TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(MagazineSystemTests, self).__init__(*args, **kwargs)
+        self.catalog = MagazineCatalog()
     def test01_system_can_see_list_of_articles(self):
         system = MagazineSystem()
 
