@@ -150,9 +150,9 @@ class MagazineSystemTests(unittest.TestCase):
         )
         title_of_article_to_obtain = "Title A"
 
-        obtained_article = system.article_by_title(title_of_article_to_obtain)
+        obtained_article = system.article_by_id(1)
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
-        self.assertTrue(obtained_article.has_text("a" * Article.MINIMUM_TEXT_LENGTH))
+        self.assertTrue(obtained_article.has_text("x" * Article.MINIMUM_TEXT_LENGTH))
     def _generate_summarized_article_list(self, articles):
         summarized_articles = []
         for article in articles:
