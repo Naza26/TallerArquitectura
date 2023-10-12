@@ -10,8 +10,11 @@ class MagazineCatalog:
     def empty_magazine(self):
         return Magazine()
 
-    def magazine_with_articles(self, articles):
+    def magazine_with_articles(self):
         magazine = self.empty_magazine()
+        articles = [Article("Title A", "x" * Article.MINIMUM_TEXT_LENGTH),
+                    Article("Title B", "y" * Article.MINIMUM_TEXT_LENGTH),
+                    Article("Title C", "z" * Article.MINIMUM_TEXT_LENGTH)]
         for article in articles:
             magazine.publish(article)
         return magazine

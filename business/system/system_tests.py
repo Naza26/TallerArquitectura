@@ -112,10 +112,9 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(len(articles), 0)
 
     def test10_system_can_obtain_summarized_articles_list(self):
-        system = MagazineSystem(self.catalog.empty_magazine())
-        articles_to_serialize = system.unserialized_sample_articles()
-        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
-        self.publish_articles(system, articles_to_publish)
+        system = MagazineSystem(self.catalog.magazine_with_articles())
+        articles_to_publish = [list(article.values())[0] for article in system.list_of_articles()]
+
 
         summarized_articles = system.list_of_summarized_articles()
 
