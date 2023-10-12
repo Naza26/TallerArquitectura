@@ -28,6 +28,7 @@ class MagazineSystem:
                 return article
         return None
 
+    # Where should this method be placed? Catalog or system?
     def unserialized_sample_articles(self):
         return [
             {"title": "Title A", "text": "x" * Article.MINIMUM_TEXT_LENGTH},
