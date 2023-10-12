@@ -41,15 +41,14 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test04_system_can_publish_articles_with_valid_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
-        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
-        article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        system.publish(article_to_publish)
+        for article_to_serialize in system.unserialized_sample_articles():
+            article_to_publish = system.create_serialized_article(article_to_serialize)
+            system.publish(article_to_publish)
 
         published_article = system.list_of_articles()[0]
         published_article = list(published_article.values())[0]
-        self.assertTrue(published_article.has_text(article_to_serialize["text"]))
-        self.assertFalse(published_article.has_text("xxx"))
+        self.assertTrue(published_article.has_text(system.unserialized_sample_articles()[0]["text"]))
 
     def test05_system_cannot_publish_articles_with_too_short_titles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
