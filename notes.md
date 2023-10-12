@@ -13,9 +13,18 @@ Aprendizaje, decisiones de disenio
 - Programar con TDD el negocio
 - Modelar las restricciones
 - Asignar las responsabilidades de dónde viven las restricciones
+- Modelar la funcionalidad del sistema (cómo se puede usar el sistema)
+- Cuidar la consistencia del sistema:
+  - Cuidar que no entre nada corrupto al sistema 
+  - Cuidar que la salida no permita la corrupción del sistema 
+  - Afuera: objetos planos (la mayoría de las veces), Adentro: objetos de negocio
+- Resolver cómo desde afuera se referencian objetos del sistema
 
 ### Fuera del alcance
 - Sin persistencia
+- Manejo de errores 
+- Resolver cuestiones de protocolo (http o línea de comandos)
+- Interactuar/utilizar el framework de comunicación (Django en este caso)
 
 ### Mi input, mi iteración
 
@@ -35,4 +44,3 @@ Aprendizaje, decisiones de disenio
 
 ¿Y los valores de los límites, cómo los modelaron?
 - En constantes en un objeto de negocio
-
