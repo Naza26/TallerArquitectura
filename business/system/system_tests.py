@@ -30,15 +30,14 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test03_system_can_publish_articles_with_valid_titles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
-        article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
-        article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        system.publish(article_to_publish)
+        for article_to_serialize in system.unserialized_sample_articles():
+            article_to_publish = system.create_serialized_article(article_to_serialize)
+            system.publish(article_to_publish)
 
         published_article = system.list_of_articles()[0]
         published_article = list(published_article.values())[0]
-        self.assertTrue(published_article.has_title(article_to_serialize["title"]))
-        self.assertFalse(published_article.has_title("xxx"))  # Delete me
+        self.assertTrue(published_article.has_title(system.unserialized_sample_articles()[0]["title"]))
 
     def test04_system_can_publish_articles_with_valid_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
