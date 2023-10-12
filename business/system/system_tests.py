@@ -121,10 +121,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(summarized_articles, expected_articles_list)
 
     def test11_system_can_obtain_article_by_title(self):
-        system = MagazineSystem(self.catalog.empty_magazine())
-        articles_to_serialize = system.unserialized_sample_articles()
-        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
-        self.publish_articles(system, articles_to_publish)
+        system = MagazineSystem(self.catalog.magazine_with_articles())
         title_of_article_to_obtain = "Title A"
 
         obtained_article = system.article_by_id(1)
