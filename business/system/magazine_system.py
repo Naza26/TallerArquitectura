@@ -3,8 +3,8 @@ from business.model.magazine import Magazine
 
 
 class MagazineSystem:
-    def __init__(self):
-        self._magazine = Magazine()
+    def __init__(self, magazine):
+        self._magazine = magazine
 
     def list_of_articles(self):
         return self._magazine.list_of_articles().copy()

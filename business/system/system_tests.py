@@ -12,14 +12,14 @@ class MagazineSystemTests(unittest.TestCase):
         self.catalog = MagazineCatalog()
 
     def test01_system_can_see_list_of_articles(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
 
         articles = system.list_of_articles()
 
         self.assertEqual(len(articles), 0)
 
     def test02_system_can_publish_an_article(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         article_to_publish = system.create_serialized_article(article_to_serialize)
 
@@ -29,7 +29,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(len(articles), 1)
 
     def test03_system_can_publish_articles_with_valid_titles(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         article_to_publish = system.create_serialized_article(article_to_serialize)
 
@@ -41,7 +41,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertFalse(published_article.has_title("xxx"))  # Delete me
 
     def test04_system_can_publish_articles_with_valid_texts(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH, "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         article_to_publish = system.create_serialized_article(article_to_serialize)
 
@@ -53,7 +53,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertFalse(published_article.has_text("xxx"))
 
     def test05_system_cannot_publish_articles_with_too_short_titles(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * (Article.MINIMUM_TITLE_LENGTH - 1),
                                 "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
@@ -66,7 +66,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(error_message, str(result.exception))
 
     def test06_system_cannot_publish_articles_with_too_short_texts(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH,
                                 "text": "x" * (Article.MINIMUM_TEXT_LENGTH - 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
@@ -79,7 +79,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(error_message, str(result.exception))
 
     def test07_system_cannot_publish_articles_with_too_long_titles(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * (Article.MAXIMUM_TITLE_LENGTH + 1),
                                 "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
@@ -92,7 +92,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(error_message, str(result.exception))
 
     def test08_system_cannot_publish_articles_with_too_long_texts(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         article_to_serialize = {"title": "x" * Article.MINIMUM_TITLE_LENGTH,
                                 "text": "x" * (Article.MAXIMUM_TEXT_LENGTH + 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
@@ -105,7 +105,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(error_message, str(result.exception))
 
     def test09_system_cannot_be_corrupted_from_outside(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         articles = system.list_of_articles()
 
         articles.append("xxx")
@@ -114,7 +114,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(len(articles), 0)
 
     def test10_system_can_obtain_summarized_articles_list(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         articles_to_serialize = system.unserialized_sample_articles()
         articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
         self.publish_articles(system, articles_to_publish)
@@ -125,7 +125,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertEqual(summarized_articles, expected_articles_list)
 
     def test11_system_can_obtain_article_by_title(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         articles_to_serialize = system.unserialized_sample_articles()
         articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
         self.publish_articles(system, articles_to_publish)
@@ -136,7 +136,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
 
     def test12_system_cannot_obtain_article_if_title_is_not_found(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         articles_to_serialize = system.unserialized_sample_articles()
         articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
         self.publish_articles(system, articles_to_publish)
@@ -146,7 +146,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertTrue(obtained_article is None)
 
     def test13_system_can_unequivocally_obtain_article(self):
-        system = MagazineSystem()
+        system = MagazineSystem(self.catalog.empty_magazine())
         articles_to_serialize = system.unserialized_sample_articles()
         articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
         self.publish_articles(system, articles_to_publish)
