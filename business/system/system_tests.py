@@ -147,8 +147,11 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertTrue(obtained_article.has_text("x" * Article.MINIMUM_TEXT_LENGTH))
 
     def _articles_to_publish(self, system):
-        return [list(article.values())[0] for article in system.list_of_articles()]
-
+        articles_to_publish = []
+        for article in system.list_of_articles():
+            parsed_article = list(article.values())[0]
+            articles_to_publish.append(parsed_article)
+        return articles_to_publish
 
 
 if __name__ == '__main__':
