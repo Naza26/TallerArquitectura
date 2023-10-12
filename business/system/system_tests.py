@@ -115,20 +115,20 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test10_system_can_obtain_summarized_articles_list(self):
         system = MagazineSystem()
-        articles_to_serialize = self.catalog.articles_to_serialize()
-        articles_to_publish = self.catalog.articles_to_publish(system, articles_to_serialize)
-        self.catalog.publish_articles(system, articles_to_publish)
+        articles_to_serialize = system.unserialized_sample_articles()
+        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
+        self.publish_articles(system, articles_to_publish)
 
         summarized_articles = system.list_of_summarized_articles()
 
-        expected_articles_list = self.catalog.generate_summarized_article_list(articles_to_publish)
+        expected_articles_list = self.catalog.summarized_article_list(articles_to_publish)
         self.assertEqual(summarized_articles, expected_articles_list)
 
     def test11_system_can_obtain_article_by_title(self):
         system = MagazineSystem()
-        articles_to_serialize = self.catalog.articles_to_serialize()
-        articles_to_publish = self.catalog.articles_to_publish(system, articles_to_serialize)
-        self.catalog.publish_articles(system, articles_to_publish)
+        articles_to_serialize = system.unserialized_sample_articles()
+        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
+        self.publish_articles(system, articles_to_publish)
         title_of_article_to_obtain = "Title A"
 
         obtained_article = system.article_by_id(1)
@@ -137,9 +137,9 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test12_system_cannot_obtain_article_if_title_is_not_found(self):
         system = MagazineSystem()
-        articles_to_serialize = self.catalog.articles_to_serialize()
-        articles_to_publish = self.catalog.articles_to_publish(system, articles_to_serialize)
-        self.catalog.publish_articles(system, articles_to_publish)
+        articles_to_serialize = system.unserialized_sample_articles()
+        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
+        self.publish_articles(system, articles_to_publish)
 
         obtained_article = system.article_by_id(4)
 
@@ -147,9 +147,9 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test13_system_can_unequivocally_obtain_article(self):
         system = MagazineSystem()
-        articles_to_serialize = self.catalog.articles_to_serialize()
-        articles_to_publish = self.catalog.articles_to_publish(system, articles_to_serialize)
-        self.catalog.publish_articles(system, articles_to_publish)
+        articles_to_serialize = system.unserialized_sample_articles()
+        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
+        self.publish_articles(system, articles_to_publish)
         system.publish(system.create_serialized_article(
             {"title": "Title A", "text": "a" * Article.MINIMUM_TEXT_LENGTH})
         )
@@ -158,6 +158,16 @@ class MagazineSystemTests(unittest.TestCase):
         obtained_article = system.article_by_id(1)
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
         self.assertTrue(obtained_article.has_text("x" * Article.MINIMUM_TEXT_LENGTH))
+
+    def articles_to_publish(self, system, articles_to_serialize):
+        articles_to_publish = []
+        for article in articles_to_serialize:
+            articles_to_publish.append(system.create_serialized_article(article))
+        return articles_to_publish
+
+    def publish_articles(self, system, articles_to_publish):
+        [system.publish(article) for article in articles_to_publish]
+
 
 
 if __name__ == '__main__':
