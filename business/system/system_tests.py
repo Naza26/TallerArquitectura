@@ -136,10 +136,7 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertTrue(obtained_article is None)
 
     def test13_system_can_unequivocally_obtain_article(self):
-        system = MagazineSystem(self.catalog.empty_magazine())
-        articles_to_serialize = system.unserialized_sample_articles()
-        articles_to_publish = self.articles_to_publish(system, articles_to_serialize)
-        self.publish_articles(system, articles_to_publish)
+        system = MagazineSystem(self.catalog.magazine_with_articles())
         system.publish(system.create_serialized_article(
             {"title": "Title A", "text": "a" * Article.MINIMUM_TEXT_LENGTH})
         )
