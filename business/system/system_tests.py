@@ -125,7 +125,7 @@ class MagazineSystemTests(unittest.TestCase):
         self._publish_articles(system, articles_to_publish)
         title_of_article_to_obtain = "Title A"
 
-        obtained_article = system.article_by_title(title_of_article_to_obtain)
+        obtained_article = system.article_by_id(1)
 
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
 
@@ -134,9 +134,8 @@ class MagazineSystemTests(unittest.TestCase):
         articles_to_serialize = self._articles_to_serialize()
         articles_to_publish = self._articles_to_publish(system, articles_to_serialize)
         self._publish_articles(system, articles_to_publish)
-        title_of_article_to_obtain = "Title D"
 
-        obtained_article = system.article_by_title(title_of_article_to_obtain)
+        obtained_article = system.article_by_id(4)
 
         self.assertTrue(obtained_article is None)
 
