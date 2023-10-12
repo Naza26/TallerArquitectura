@@ -26,7 +26,7 @@ Aprendizaje, decisiones de disenio
 
 - Magazine
 - Article
-- 
+
 ¿Dónde se crea el artículo?
 - Se crea afuera de la Magazine y luego se lo agrega
 
