@@ -115,7 +115,6 @@ class MagazineSystemTests(unittest.TestCase):
         system = MagazineSystem(self.catalog.magazine_with_articles())
         articles_to_publish = [list(article.values())[0] for article in system.list_of_articles()]
 
-
         summarized_articles = system.list_of_summarized_articles()
 
         expected_articles_list = self.catalog.summarized_article_list(articles_to_publish)
@@ -164,7 +163,6 @@ class MagazineSystemTests(unittest.TestCase):
 
     def publish_articles(self, system, articles_to_publish):
         [system.publish(article) for article in articles_to_publish]
-
 
 
 if __name__ == '__main__':
