@@ -152,8 +152,6 @@ class MagazineSystemTests(unittest.TestCase):
             articles_to_publish.append(system.create_serialized_article(article))
         return articles_to_publish
 
-    def publish_articles(self, system, articles_to_publish):
-        [system.publish(article) for article in articles_to_publish]
 
 
 if __name__ == '__main__':
