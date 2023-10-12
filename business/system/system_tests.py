@@ -113,7 +113,7 @@ class MagazineSystemTests(unittest.TestCase):
 
     def test10_system_can_obtain_summarized_articles_list(self):
         system = MagazineSystem(self.catalog.magazine_with_articles())
-        articles_to_publish = [list(article.values())[0] for article in system.list_of_articles()]
+        articles_to_publish = self._articles_to_publish(system)
 
         summarized_articles = system.list_of_summarized_articles()
 
@@ -146,11 +146,8 @@ class MagazineSystemTests(unittest.TestCase):
         self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
         self.assertTrue(obtained_article.has_text("x" * Article.MINIMUM_TEXT_LENGTH))
 
-    def articles_to_publish(self, system, articles_to_serialize):
-        articles_to_publish = []
-        for article in articles_to_serialize:
-            articles_to_publish.append(system.create_serialized_article(article))
-        return articles_to_publish
+    def _articles_to_publish(self, system):
+        return [list(article.values())[0] for article in system.list_of_articles()]
 
 
 
