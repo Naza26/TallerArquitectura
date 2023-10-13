@@ -17,8 +17,7 @@ class MagazineTests(unittest.TestCase):
         self.assertEqual(len(articles), 0)
 
     def test_02_an_article_can_be_published(self):
-        standard_article_text = self.catalog.standard_article_text()
-        article = self.catalog.create_article(text=standard_article_text)
+        article = self.catalog.create_article()
 
         self.magazine.publish(article)
 
@@ -40,12 +39,12 @@ class MagazineTests(unittest.TestCase):
         self.magazine.publish(article)
 
         an_article = list(self.catalog.sample_article_from(self.magazine.list_of_articles()).values())[0]
-        self._assert_proper_article_is_contained_in_magazine(an_article.contains_text_named, an_article.contains_text_named,
+        self._assert_proper_article_is_contained_in_magazine(an_article.contains_text_named,
+                                                             an_article.contains_text_named,
                                                              self.catalog.standard_article_text())
 
     def test_05_title_of_article_cannot_be_too_short(self):
-        short_article_title = self.catalog.short_article_title()
-        invalid_article = self.catalog.create_article(title=short_article_title)
+        invalid_article = self.catalog.create_article(title=self.catalog.short_article_title())
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, self.magazine)
 
