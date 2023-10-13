@@ -35,7 +35,7 @@ class MagazineSystemTests(unittest.TestCase):
         self._publish_serialized_articles(system)
 
         published_article = list(self.catalog.sample_article_from(system.list_of_articles()).values())[0]
-        self.assertTrue(published_article.has_title(system.unserialized_sample_articles()[0]["title"]))
+        self.assertTrue(published_article.contains_title_named(system.unserialized_sample_articles()[0]["title"]))
 
     def test04_system_can_publish_articles_with_valid_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
@@ -43,7 +43,7 @@ class MagazineSystemTests(unittest.TestCase):
         self._publish_serialized_articles(system)
 
         published_article = list(self.catalog.sample_article_from(system.list_of_articles()).values())[0]
-        self.assertTrue(published_article.has_text(system.unserialized_sample_articles()[0]["text"]))
+        self.assertTrue(published_article.contains_text_named(system.unserialized_sample_articles()[0]["text"]))
 
     def test05_system_cannot_publish_articles_with_too_short_titles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
@@ -109,7 +109,7 @@ class MagazineSystemTests(unittest.TestCase):
 
         obtained_article = system.article_by_id(1)
 
-        self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
+        self.assertTrue(obtained_article.contains_title_named(title_of_article_to_obtain))
 
     def test12_system_cannot_obtain_article_if_title_is_not_found(self):
         system = MagazineSystem(self.catalog.magazine_with_articles())
@@ -126,7 +126,7 @@ class MagazineSystemTests(unittest.TestCase):
         title_of_article_to_obtain = "Title A"
 
         obtained_article = system.article_by_id(1)
-        self._assert_system_finds_proper_article(obtained_article.has_text, obtained_article.has_title,
+        self._assert_system_finds_proper_article(obtained_article.contains_text_named, obtained_article.contains_title_named,
                                                  title_of_article_to_obtain)
 
     def _articles_to_publish(self, system):

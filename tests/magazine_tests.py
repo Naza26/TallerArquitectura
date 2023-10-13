@@ -31,7 +31,7 @@ class MagazineTests(unittest.TestCase):
         self.magazine.publish(article)
 
         an_article = list(self.catalog.sample_article_from(self.magazine.list_of_articles()).values())[0]
-        self._assert_proper_article_is_contained_in_magazine(an_article.has_title, an_article.has_title,
+        self._assert_proper_article_is_contained_in_magazine(an_article.contains_title_named, an_article.contains_title_named,
                                                              self.catalog.standard_article_title())
 
     def test_04_when_published_an_article_has_a_text(self):
@@ -40,7 +40,7 @@ class MagazineTests(unittest.TestCase):
         self.magazine.publish(article)
 
         an_article = list(self.catalog.sample_article_from(self.magazine.list_of_articles()).values())[0]
-        self._assert_proper_article_is_contained_in_magazine(an_article.has_text, an_article.has_text,
+        self._assert_proper_article_is_contained_in_magazine(an_article.contains_text_named, an_article.contains_text_named,
                                                              self.catalog.standard_article_text())
 
     def test_05_title_of_article_cannot_be_too_short(self):

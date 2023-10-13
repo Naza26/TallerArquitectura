@@ -11,10 +11,10 @@ class Article:
         self._title = title
         self._text = text
 
-    def has_title(self, title):
+    def contains_title_named(self, title):
         return self._title == title
 
-    def has_text(self, text):
+    def contains_text_named(self, text):
         return self._text == text
 
     def contains_invalid_text_length(self):
