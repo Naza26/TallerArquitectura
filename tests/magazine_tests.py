@@ -32,15 +32,14 @@ class MagazineTests(unittest.TestCase):
         self.assertEqual(len(articles), 1)
 
     def test_03_when_published_an_article_has_a_title(self):
-        standard_article_title = self.catalog.standard_article_title()
-        article = self.catalog.create_article(title=standard_article_title)
+        article = self.catalog.create_article()
 
         self.magazine.publish(article)
 
         an_article = self.catalog.sample_article_from(self.magazine.list_of_articles())
         an_article = list(an_article.values())[0]
         self._assert_proper_article_is_contained_in_magazine(an_article.has_title, an_article.has_title,
-                                                             standard_article_title)
+                                                             self.catalog.standard_article_title())
 
     def test_04_when_published_an_article_has_a_text(self):
         standard_article_text = self.catalog.standard_article_text()
