@@ -54,6 +54,10 @@ class MagazineCatalog:
         return summarized_articles
 
     def title_length_error(self):
+        # No me es claro si es responsabilidad del catalog tener estos mensajes
+        # Antes los tenia definidos en el setUp de cada suite de tests, que parecia lo mas acorde
+        # pero que sin embargo me hacia tener codigo repetido en ambos setUps de los tests
+        # por lo que senti "cierta" necesidad de moverlo. no se si esta bien o no.
         return f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
                f" characters long"
 
