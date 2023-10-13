@@ -31,8 +31,7 @@ class MagazineSystemTests(unittest.TestCase):
 
         self._publish_serialized_articles(system)
 
-        published_article = system.list_of_articles()[0]
-        published_article = list(published_article.values())[0]
+        published_article = list(self.catalog.sample_article_from(system.list_of_articles()).values())[0]
         self.assertTrue(published_article.has_title(system.unserialized_sample_articles()[0]["title"]))
 
     def test04_system_can_publish_articles_with_valid_texts(self):
@@ -40,8 +39,7 @@ class MagazineSystemTests(unittest.TestCase):
 
         self._publish_serialized_articles(system)
 
-        published_article = system.list_of_articles()[0]
-        published_article = list(published_article.values())[0]
+        published_article = list(self.catalog.sample_article_from(system.list_of_articles()).values())[0]
         self.assertTrue(published_article.has_text(system.unserialized_sample_articles()[0]["text"]))
 
     def test05_system_cannot_publish_articles_with_too_short_titles(self):
