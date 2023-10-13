@@ -1,6 +1,4 @@
 import unittest
-
-from business.model.article import Article
 from tests.magazine_catalog import MagazineCatalog
 
 
