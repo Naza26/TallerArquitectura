@@ -129,8 +129,9 @@ class MagazineSystemTests(unittest.TestCase):
         title_of_article_to_obtain = "Title A"
 
         obtained_article = system.article_by_id(1)
-        self.assertTrue(obtained_article.has_title(title_of_article_to_obtain))
-        self.assertTrue(obtained_article.has_text("x" * Article.MINIMUM_TEXT_LENGTH))
+        self._assert_system_finds_proper_article(obtained_article.has_text, obtained_article.has_title,
+                                                 title_of_article_to_obtain)
+
 
     def _articles_to_publish(self, system):
         articles_to_publish = []
@@ -148,6 +149,10 @@ class MagazineSystemTests(unittest.TestCase):
         for article_to_serialize in system.unserialized_sample_articles():
             article_to_publish = system.create_serialized_article(article_to_serialize)
             system.publish(article_to_publish)
+
+    def _assert_system_finds_proper_article(self, has_invalid_content, has_valid_content, content):
+        self.assertTrue(has_valid_content(content))
+        self.assertTrue(has_invalid_content("x" * Article.MINIMUM_TEXT_LENGTH))
 
 
 if __name__ == '__main__':
