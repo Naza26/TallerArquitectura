@@ -12,8 +12,10 @@ class MagazineTests(unittest.TestCase):
 
     def setUp(self):
         self.magazine = self.catalog.empty_magazine()
-        self.error_message = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
-                             f" characters long"
+        self.title_length_error = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+                                  f" characters long"
+        self.text_length_error = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
+                                 f" characters long"
 
     def test_01_list_of_articles_can_be_seen(self):
         articles = self.magazine.list_of_articles()
@@ -57,7 +59,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, self.magazine)
 
-        self.assertEqual(self.error_message, str(result.exception))
+        self.assertEqual(self.title_length_error, str(result.exception))
 
     def test_06_title_of_article_cannot_be_too_long(self):
         long_article_title = self.catalog.long_article_title()
@@ -65,7 +67,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, self.magazine)
 
-        self.assertEqual(self.error_message, str(result.exception))
+        self.assertEqual(self.title_length_error, str(result.exception))
 
     def test_07_text_of_article_cannot_be_too_short(self):
         short_article_text = self.catalog.short_article_text()
@@ -73,7 +75,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, self.magazine)
 
-        self.assertEqual(self.error_message, str(result.exception))
+        self.assertEqual(self.text_length_error, str(result.exception))
 
     def test_08_text_of_article_cannot_be_too_long(self):
         long_article_text = self.catalog.long_article_text()
@@ -81,7 +83,7 @@ class MagazineTests(unittest.TestCase):
 
         result = self._assert_magazine_cannot_publish_invalid_article(invalid_article, self.magazine)
 
-        self.assertEqual(self.error_message, str(result.exception))
+        self.assertEqual(self.text_length_error, str(result.exception))
 
     def _assert_magazine_cannot_publish_invalid_article(self, article, magazine):
         with self.assertRaises(Exception) as result:
