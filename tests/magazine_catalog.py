@@ -19,7 +19,6 @@ class MagazineCatalog:
             magazine.publish(article)
         return magazine
 
-
     def long_article_title(self):
         return "x" * (max(Article.VALID_TITLE_LENGTH) + 1)
 
@@ -53,3 +52,11 @@ class MagazineCatalog:
         for article in articles:
             summarized_articles.append(article.summarized())
         return summarized_articles
+
+    def title_length_error(self):
+        return f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+               f" characters long"
+
+    def text_length_error(self):
+        return f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
+               f" characters long"
