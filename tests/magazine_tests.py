@@ -12,7 +12,7 @@ class MagazineTests(unittest.TestCase):
 
     def setUp(self):
         self.magazine = self.catalog.empty_magazine()
-        self.title_length_error = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+        self.title_length_error = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}"\
                                   f" characters long"
         self.text_length_error = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
                                  f" characters long"
