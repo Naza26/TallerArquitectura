@@ -54,8 +54,7 @@ class MagazineSystemTests(unittest.TestCase):
                                 "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        with self.assertRaises(Exception) as result:
-            system.publish(invalid_article_to_publish)
+        result = self._system_cannot_publish_invalid_articles(invalid_article_to_publish, system)
 
         self.assertEqual(self.title_length_error, str(result.exception))
 
@@ -65,8 +64,7 @@ class MagazineSystemTests(unittest.TestCase):
                                 "text": "x" * (Article.MINIMUM_TEXT_LENGTH - 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        with self.assertRaises(Exception) as result:
-            system.publish(invalid_article_to_publish)
+        result = self._system_cannot_publish_invalid_articles(invalid_article_to_publish, system)
 
         self.assertEqual(self.text_length_error, str(result.exception))
 
@@ -76,8 +74,7 @@ class MagazineSystemTests(unittest.TestCase):
                                 "text": "x" * Article.MINIMUM_TEXT_LENGTH}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        with self.assertRaises(Exception) as result:
-            system.publish(invalid_article_to_publish)
+        result = self._system_cannot_publish_invalid_articles(invalid_article_to_publish, system)
 
         self.assertEqual(self.title_length_error, str(result.exception))
 
@@ -87,8 +84,7 @@ class MagazineSystemTests(unittest.TestCase):
                                 "text": "x" * (Article.MAXIMUM_TEXT_LENGTH + 1)}
         invalid_article_to_publish = system.create_serialized_article(article_to_serialize)
 
-        with self.assertRaises(Exception) as result:
-            system.publish(invalid_article_to_publish)
+        result = self._system_cannot_publish_invalid_articles(invalid_article_to_publish, system)
 
         self.assertEqual(self.text_length_error, str(result.exception))
 
@@ -142,6 +138,11 @@ class MagazineSystemTests(unittest.TestCase):
             parsed_article = list(article.values())[0]
             articles_to_publish.append(parsed_article)
         return articles_to_publish
+
+    def _system_cannot_publish_invalid_articles(self, invalid_article_to_publish, system):
+        with self.assertRaises(Exception) as result:
+            system.publish(invalid_article_to_publish)
+        return result
 
     def _publish_serialized_articles(self, system):
         for article_to_serialize in system.unserialized_sample_articles():
