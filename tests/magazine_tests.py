@@ -30,8 +30,7 @@ class MagazineTests(unittest.TestCase):
 
         self.magazine.publish(article)
 
-        an_article = self.catalog.sample_article_from(self.magazine.list_of_articles())
-        an_article = list(an_article.values())[0]
+        an_article = list(self.catalog.sample_article_from(self.magazine.list_of_articles()).values())[0]
         self._assert_proper_article_is_contained_in_magazine(an_article.has_title, an_article.has_title,
                                                              self.catalog.standard_article_title())
 
@@ -40,8 +39,7 @@ class MagazineTests(unittest.TestCase):
 
         self.magazine.publish(article)
 
-        an_article = self.catalog.sample_article_from(self.magazine.list_of_articles())
-        an_article = list(an_article.values())[0]
+        an_article = list(self.catalog.sample_article_from(self.magazine.list_of_articles()).values())[0]
         self._assert_proper_article_is_contained_in_magazine(an_article.has_text, an_article.has_text,
                                                              self.catalog.standard_article_text())
 
