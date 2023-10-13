@@ -11,6 +11,12 @@ class MagazineSystemTests(unittest.TestCase):
         super(MagazineSystemTests, self).__init__(*args, **kwargs)
         self.catalog = MagazineCatalog()
 
+    def setUp(self):
+        self.title_length_error = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
+                                  f" characters long"
+        self.text_length_error = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
+                                 f" characters long"
+
     def test01_system_can_see_list_of_articles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
 
@@ -51,9 +57,7 @@ class MagazineSystemTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             system.publish(invalid_article_to_publish)
 
-        error_message = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
-                        f" characters long"
-        self.assertEqual(error_message, str(result.exception))
+        self.assertEqual(self.title_length_error, str(result.exception))
 
     def test06_system_cannot_publish_articles_with_too_short_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
@@ -64,9 +68,7 @@ class MagazineSystemTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             system.publish(invalid_article_to_publish)
 
-        error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
-                        f" characters long"
-        self.assertEqual(error_message, str(result.exception))
+        self.assertEqual(self.text_length_error, str(result.exception))
 
     def test07_system_cannot_publish_articles_with_too_long_titles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
@@ -77,9 +79,7 @@ class MagazineSystemTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             system.publish(invalid_article_to_publish)
 
-        error_message = f"Title must be within {Article.MINIMUM_TITLE_LENGTH}-{Article.MAXIMUM_TITLE_LENGTH}" \
-                        f" characters long"
-        self.assertEqual(error_message, str(result.exception))
+        self.assertEqual(self.title_length_error, str(result.exception))
 
     def test08_system_cannot_publish_articles_with_too_long_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
@@ -90,9 +90,7 @@ class MagazineSystemTests(unittest.TestCase):
         with self.assertRaises(Exception) as result:
             system.publish(invalid_article_to_publish)
 
-        error_message = f"Text must be within {Article.MINIMUM_TEXT_LENGTH}-{Article.MAXIMUM_TEXT_LENGTH}" \
-                        f" characters long"
-        self.assertEqual(error_message, str(result.exception))
+        self.assertEqual(self.text_length_error, str(result.exception))
 
     def test09_system_cannot_be_corrupted_from_outside(self):
         system = MagazineSystem(self.catalog.empty_magazine())
