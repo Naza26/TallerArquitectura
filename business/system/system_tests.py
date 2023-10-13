@@ -129,7 +129,6 @@ class MagazineSystemTests(unittest.TestCase):
         self._assert_system_finds_proper_article(obtained_article.has_text, obtained_article.has_title,
                                                  title_of_article_to_obtain)
 
-
     def _articles_to_publish(self, system):
         articles_to_publish = []
         for article in system.list_of_articles():
