@@ -21,9 +21,7 @@ class MagazineSystemTests(unittest.TestCase):
     def test02_system_can_publish_an_article(self):
         system = MagazineSystem(self.catalog.empty_magazine())
 
-        for article_to_serialize in system.unserialized_sample_articles():
-            article_to_publish = system.create_serialized_article(article_to_serialize)
-            system.publish(article_to_publish)
+        self._publish_serialized_articles(system)
 
         articles = system.list_of_articles()
         self.assertEqual(len(articles), 3)
@@ -31,9 +29,7 @@ class MagazineSystemTests(unittest.TestCase):
     def test03_system_can_publish_articles_with_valid_titles(self):
         system = MagazineSystem(self.catalog.empty_magazine())
 
-        for article_to_serialize in system.unserialized_sample_articles():
-            article_to_publish = system.create_serialized_article(article_to_serialize)
-            system.publish(article_to_publish)
+        self._publish_serialized_articles(system)
 
         published_article = system.list_of_articles()[0]
         published_article = list(published_article.values())[0]
@@ -42,9 +38,7 @@ class MagazineSystemTests(unittest.TestCase):
     def test04_system_can_publish_articles_with_valid_texts(self):
         system = MagazineSystem(self.catalog.empty_magazine())
 
-        for article_to_serialize in system.unserialized_sample_articles():
-            article_to_publish = system.create_serialized_article(article_to_serialize)
-            system.publish(article_to_publish)
+        self._publish_serialized_articles(system)
 
         published_article = system.list_of_articles()[0]
         published_article = list(published_article.values())[0]
@@ -152,6 +146,11 @@ class MagazineSystemTests(unittest.TestCase):
             parsed_article = list(article.values())[0]
             articles_to_publish.append(parsed_article)
         return articles_to_publish
+
+    def _publish_serialized_articles(self, system):
+        for article_to_serialize in system.unserialized_sample_articles():
+            article_to_publish = system.create_serialized_article(article_to_serialize)
+            system.publish(article_to_publish)
 
 
 if __name__ == '__main__':
